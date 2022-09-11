@@ -8,8 +8,21 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 4rem;
 }
 
 .footer {
@@ -28,6 +41,56 @@
   flex-grow: 1;
 }
 
+.intro {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.introImage {
+    border-radius: 50%;
+}
+
+.listTitle {
+    font-size: 1.5rem;
+}
+
+.sublistTitle {
+    color: #4B9994;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.itemInfo {
+    margin-left: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    row-gap: 0.6rem;
+}
+
+.itemName {
+    font-weight: 500;
+}
+
+.itemImage {
+  clip-path: circle(40%);
+  height: 128px;
+}
+
+.item a {
+    color: #4B9994;
+}
+
 .title a {
   color: #0070f3;
   text-decoration: none;
@@ -42,7 +105,7 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 2rem;
 }
 
 .title,
@@ -104,8 +167,10 @@
 }
 
 .logo {
-  height: 1em;
-  margin-left: 0.5rem;
+  clip-path: circle(15px at 20px 20px); // bugs 1247229 / 1075457 pour Firefox
+  background-color: grey;
+  height: 40px;
+  width: 40px;
 }
 
 @media (max-width: 600px) {
@@ -127,3 +192,4 @@
     filter: invert(1);
   }
 }
+
