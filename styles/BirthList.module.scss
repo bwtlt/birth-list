@@ -1,4 +1,14 @@
+$blue: #4B9994;
+$black: #050517;
+$red: #EE6352;
+$dark-red: #951E0F;
+$pink: #FBDCDA;
+$light-pink: #FBDEDA;
+$light-pink-2: #fee6e3;
+$yellow: #FAC05E;
+
 .container {
+  color: $black;
   padding: 0 2rem;
 }
 
@@ -52,12 +62,32 @@
     border-radius: 50%;
 }
 
+.gifterForm {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.gifterFormFields {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  gap: 0.2em;
+}
+
 .listTitle {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
+  padding: 1rem 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
 
 .sublistTitle {
-    color: #4B9994;
+    color: $dark-red;
     font-weight: 700;
     font-size: 1.2rem;
 }
@@ -65,30 +95,161 @@
 .item {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
+    justify-content: flex-start;
+    background-color: $light-pink;
+    border-radius: 20px;
+    padding: 0 1em;
+    transform: translateZ(-1px);
 }
 
-.itemInfo {
-    margin-left: 2em;
+.itemSpecs {
+    margin: 1em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
     row-gap: 0.6rem;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .itemName {
     font-weight: 500;
 }
 
-.itemImage {
+.itemImageContainer {
+  position: relative;
+  height: 8rem;
+  min-width: 8rem;
   clip-path: circle(40%);
-  height: 128px;
+}
+
+.itemPrice {
+  color: $red;
 }
 
 .item a {
-    color: #4B9994;
+    color: $blue;
+}
+
+.giftButton {
+  white-space: nowrap;
+  align-items: center;
+  background-color: $light-pink-2;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  width: 200px;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.giftButton:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+.giftButton:hover:after {
+  transform: translate(0, 0);
+}
+
+.giftButton:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+.giftButton:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .giftButton {
+    padding: 0 40px;
+  }
+}
+
+.gifted {
+  white-space: nowrap;
+  align-items: center;
+  background-color: $light-pink-2;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #7A7A7A;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  min-width: 200px;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.gifterFormButton {
+  background-color: #EA4C89;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.gifterFormButton:hover,
+.gifterFormButton:focus {
+  background-color: #F082AC;
 }
 
 .title a {

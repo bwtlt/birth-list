@@ -1,8 +1,30 @@
+import { app, database } from '../firebase.config'
+import { collection, getDocs } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
+import Item from './components/Item'
 import styles from '../styles/BirthList.module.scss'
 
+const dbInstance = collection(database, 'list-items');
+
 export default function Home() {
+  const [itemsArray, setItemsArray] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getDocs(dbInstance)
+      .then((data) => {
+        setItemsArray(data.docs.map((item) => {
+          const itemCategory = item.data().category
+          if (categories.indexOf(itemCategory) === -1) {
+            setCategories([...categories, itemCategory])
+          }
+          return { ...item.data(), id: item.id }
+        }));
+      })
+  }, [categories])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -28,17 +50,9 @@ export default function Home() {
             </div>
             <div className={styles.list}>
               <div className={styles.listTitle}>Liste prioritaire</div>
-              <div className={styles.sublist}>
-                <div className={styles.sublistTitle}>Les sorties</div>
-                <div className={styles.item}>
-                  <Image className={styles.itemImage} src="/joie_steadi.jpg" height={175} width={125} alt="Item image"></Image>
-                  <div className={styles.itemInfo}>
-                    <div className={styles.itemName}>Siège auto</div>
-                    <div className={styles.itemDescription}>Steadi de Joie en couleur Rouge, sur le site internet 169€, en magasin 149€ en Septembre (disponible chez Bébé 9 et Aubert)</div>
-                    <a href="#" className={styles.itemLink}>Lien</a>
-                  </div>
-                </div>
-              </div>
+              {itemsArray.map((item) => {
+                return (<Item key={item.id} item={item} database={database}/>)
+              })}
             </div>
           </div>
         </div>
