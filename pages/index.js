@@ -40,7 +40,9 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.container}>
           <div className={styles.header}>
-            <div className={styles.logo}></div>
+            <div className={styles.logo}>
+              <Image src="/logo.svg" alt="Vercel Logo" width={40} height={40} />
+            </div>
             <div className={styles.title}>La liste de naissance de bébé Waka</div>
           </div>
           <div className={styles.body}>

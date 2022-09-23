@@ -26,7 +26,6 @@ $yellow: #FAC05E;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
 }
 
 .body {
@@ -328,10 +327,10 @@ $yellow: #FAC05E;
 }
 
 .logo {
-  clip-path: circle(15px at 20px 20px); // bugs 1247229 / 1075457 pour Firefox
   background-color: grey;
   height: 40px;
   width: 40px;
+  margin: 0 .5rem;
 }
 
 @media (max-width: 600px) {
