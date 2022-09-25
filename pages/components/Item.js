@@ -15,17 +15,25 @@ export default function Item(props) {
             e.preventDefault();
             const name = document.querySelector('#name').value
 
+            setShowNameField(false);
+
             if (!name) {
                 alert("Merci d'entrer votre nom")
                 return false
             } else {
-                const itemRef = doc(props.database, "list-items", item.id);
-                await updateDoc(itemRef, {
+                setGiftedBy(name)
+                const itemRef = props.database.collection("list-items").doc(item.id);
+                return itemRef.update({
                     giftedBy: name
                 })
-                setGiftedBy(name)
+                .then(() => {
+                    console.log("Document successfully updated!");
+                })
+                .catch((error) => {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
             }
-            setShowNameField(false);
         }}>
             <div className={styles.gifterFormFields}>
                 <input type="text" name="name" id="name" placeholder="Votre nom"/>
