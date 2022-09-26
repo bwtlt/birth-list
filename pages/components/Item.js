@@ -5,12 +5,12 @@ import styles from '../../styles/BirthList.module.scss'
 export default function Item(props) {
     const item = props.item;
     const [showNameField, setShowNameField] = useState(false);
-    const [giftedBy, setGiftedBy] = useState(item.giftedBy);
+    const [giftedBy, setGiftedBy] = useState(item?.giftedBy);
     let component;
     let image = "/items/dejaoffert.jpeg";
 
-    if (item.image) {
-        image = "/items" + item.image;
+    if (item?.image) {
+        image = "/items" + item?.image;
     }
 
     if (giftedBy) {
@@ -27,7 +27,7 @@ export default function Item(props) {
                 return false
             } else {
                 setGiftedBy(name)
-                const itemRef = props.database.collection("list-items").doc(item.id);
+                const itemRef = props.database.collection("list-items").doc(item?.id);
                 return itemRef.update({
                     giftedBy: name
                 })
@@ -49,7 +49,7 @@ export default function Item(props) {
     } else {
         component = <button className={styles.giftButton} role="button" onClick={
             () => { setShowNameField(true) }
-        }>J'offre ce cadeau</button>;
+        }>J&apos;offre ce cadeau</button>;
     }
     
     return (
@@ -60,10 +60,10 @@ export default function Item(props) {
                 </div>
                 <div className={styles.itemInfo}>
                     <div className={styles.itemSpecs}>
-                        <div className={styles.itemName}>{item.name}</div>
-                        {item.description && <div className={styles.itemDescription}>{item.description.replaceAll("\\n", "\n")}</div>}
-                        {item.price && <div className={styles.itemPrice}>{item.price}€</div>}
-                        {item.link && <a href={item.link} className={styles.itemLink}>Lien</a>}
+                        <div className={styles.itemName}>{item?.name}</div>
+                        {item?.description && <div className={styles.itemDescription}>{item?.description.replaceAll("\\n", "\n")}</div>}
+                        {item?.price && <div className={styles.itemPrice}>{item?.price}€</div>}
+                        {item?.link && <a href={item?.link} className={styles.itemLink}>Lien</a>}
                     </div>
                     {giftedBy &&
                         <div className={styles.gifter}>
