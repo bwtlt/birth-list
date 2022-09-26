@@ -135,6 +135,10 @@ $light-yellow: #FDE8C4;
   color: $red;
 }
 
+.itemDescription {
+  white-space: pre-line;
+}
+
 .item a {
     color: $blue;
 }

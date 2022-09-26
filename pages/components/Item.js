@@ -8,6 +8,12 @@ export default function Item(props) {
     const [showNameField, setShowNameField] = useState(false);
     const [giftedBy, setGiftedBy] = useState(item.giftedBy);
     let component;
+    let image = "/items/dejaoffert.jpeg";
+
+    if (!giftedBy && item.image) {
+        image = "/items" + item.image;
+    }
+
     if (giftedBy) {
         component = <div className={styles.gifted}>Déjà offert</div>;
     } else if (showNameField) {
@@ -46,16 +52,17 @@ export default function Item(props) {
             () => { setShowNameField(true) }
         }>J'offre ce cadeau</button>;
     }
+    
     return (
         <>
             <div className={styles.item}>
                 <div className={styles.itemImageContainer}>
-                    {item.image && <Image className={styles.itemImage} src={item.image} layout="fill" objectFit="contain" alt="Item image"></Image>}
+                    <Image className={styles.itemImage} src={image} layout="fill" objectFit="contain" alt="Item image"></Image>
                 </div>
                 <div className={styles.itemInfo}>
                     <div className={styles.itemSpecs}>
                         <div className={styles.itemName}>{item.name}</div>
-                        {item.description && <div className={styles.itemDescription}>{item.description}</div>}
+                        {item.description && <div className={styles.itemDescription}>{item.description.replaceAll("\\n", "\n")}</div>}
                         {item.price && <div className={styles.itemPrice}>{item.price}€</div>}
                         {item.link && <a href={item.link} className={styles.itemLink}>Lien</a>}
                     </div>
