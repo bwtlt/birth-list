@@ -131,6 +131,10 @@ $light-yellow: #FDE8C4;
   clip-path: circle(40%);
 }
 
+.giftedItemImage {
+  opacity: 40%;
+}
+
 .itemPrice {
   color: $red;
 }
@@ -455,4 +459,8 @@ $option: #320a28;
 
 .filterButton:hover {
   outline: 0;
+}
+
+.gifter {
+  color: #BD7B7B;
 }

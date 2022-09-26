@@ -8,7 +8,7 @@ import styles from '../styles/BirthList.module.scss'
 import { useAuth } from '../context/AuthUserContext';
 
 const db = firebase.firestore();
-const CATEGORIES = ["Les repas", "Les sorties", "La chambre", "La toilette", "L'éveil", "Les souvenirs"];
+const CATEGORIES = ["Les repas", "Les sorties", "La chambre", "La toilette", "L'éveil", "Les souvenirs", "Les parents"];
 const PRIORITIES = ["« Prioritaire », nécessaire avant la naissance.", "« Les petits essentielles », peut attendre après la naissance."];
 
 export default function Home() {
@@ -112,7 +112,7 @@ export default function Home() {
                   {itemsArray.filter((item) => {
                     const hasPriority = priority == -1 || item.priority == priority;
                     const hasCategory = category == "Tout" || item.category == category;
-                    return hasPriority && hasCategory;
+                    return !item.hidden && hasPriority && hasCategory;
                   }).map((item) => {
                     return (<Item key={item.id} item={item} database={db} />)
                   })}
@@ -120,6 +120,7 @@ export default function Home() {
               </>
             }
           </div>
+          <div className={styles.footer}>Site créé par L&B</div>
         </div>
       </main>
     </div>

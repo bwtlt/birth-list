@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { useState } from 'react';
-import { doc, updateDoc } from 'firebase/firestore';
 import styles from '../../styles/BirthList.module.scss'
 
 export default function Item(props) {
@@ -10,7 +9,7 @@ export default function Item(props) {
     let component;
     let image = "/items/dejaoffert.jpeg";
 
-    if (!giftedBy && item.image) {
+    if (item.image) {
         image = "/items" + item.image;
     }
 
@@ -57,7 +56,7 @@ export default function Item(props) {
         <>
             <div className={styles.item}>
                 <div className={styles.itemImageContainer}>
-                    <Image className={styles.itemImage} src={image} layout="fill" objectFit="contain" alt="Item image"></Image>
+                    <Image className={giftedBy ? styles.giftedItemImage : styles.itemImage} src={image} layout="fill" objectFit="contain" alt="Item image"></Image>
                 </div>
                 <div className={styles.itemInfo}>
                     <div className={styles.itemSpecs}>
@@ -66,6 +65,10 @@ export default function Item(props) {
                         {item.price && <div className={styles.itemPrice}>{item.price}€</div>}
                         {item.link && <a href={item.link} className={styles.itemLink}>Lien</a>}
                     </div>
+                    {giftedBy &&
+                        <div className={styles.gifter}>
+                            Merci à {giftedBy} !
+                      </div>}
                     {component}
                 </div>
             </div>
