@@ -12,14 +12,13 @@ export default function useFirebaseAuth() {
 
   const authStateChanged = async (authState) => {
     if (!authState) {
+      setAuthUser(null)
       setLoading(false)
       return;
     }
 
     setLoading(true)
-
     var formattedUser = formatAuthUser(authState);
-
     setAuthUser(formattedUser);
     setLoading(false);
   };

@@ -6,6 +6,7 @@ $pink: #FBDCDA;
 $light-pink: #FBDEDA;
 $light-pink-2: #fee6e3;
 $yellow: #FAC05E;
+$light-yellow: #FDE8C4;
 
 .container {
   color: $black;
@@ -354,9 +355,100 @@ $yellow: #FAC05E;
   }
 }
 
+$glass: rgba(255, 255, 255, 0.2);
+$glass-icon: rgba(255, 255, 255, 0.3);
+$gradient: linear-gradient(35deg, red, purple);
+$option: #320a28;
+
 .filterControls {
   display: flex;
   flex-direction: row;
-  padding: 1rem 0;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
+  background: $light-pink-2;
+  border-radius: 20px;
+  padding: 1em 1em;
+  transform: translateZ(-1px);
+}
+
+/* <select> styles */
+.select {
+  /* Reset */
+  appearance: none;
+  border: 2px solid #111;
+  outline: 0;
+  font: inherit;
+  /* Personalize */
+  width: 20em;
+  height: 3em;
+  padding: 0 4em 0 1em;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9a/Caret_down_font_awesome.svg)
+      no-repeat right 0.8em center / 1.4em,
+    linear-gradient(to left, $glass-icon 3em, $glass 3em);
+  color: #111;
+  border-radius: 0.25em;
+  cursor: pointer;
+  /* <option> colors */
+  option {
+    color: inherit;
+    background-color: $option;
+  }
+  /* Remove focus outline */
+  &:focus {
+    outline: none;
+  }
+}
+
+.filterButton {
+  white-space: nowrap;
+  align-items: center;
+  background-color: $light-yellow;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  width: 200px;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.filterButton:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(4px, 4px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+.filterButton:hover:after {
+  transform: translate(0, 0);
+}
+
+.filterButton:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+.filterButton:hover {
+  outline: 0;
 }

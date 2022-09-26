@@ -15,12 +15,14 @@ export default function Home() {
   const [itemsArray, setItemsArray] = useState([]);
   const [category, setCategory] = useState("Tout");
   const [priority, setPriority] = useState(-1);
-  const { authUser, loading, signInWithEmailAndPassword } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { authUser, signInWithEmailAndPassword } = useAuth();
   const email = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMAIL;
   const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (authUser) {
+      setLoading(true);
       db.collection("list-items").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const item = doc.data();
@@ -28,6 +30,7 @@ export default function Home() {
           setItemsArray(itemsArray => [...itemsArray, item]);
         });
       });
+      setLoading(false);
     }
   }, [authUser])
 
@@ -52,13 +55,12 @@ export default function Home() {
             {!loading && authUser === null &&
               <div className={styles.login}>
                 <form onSubmit={async (e) => {
+                  setLoading(true);
                   signInWithEmailAndPassword(email, password)
                     .then((userCredential) => {
-                      const user = userCredential.user;
+                      console.log("Log in succesful")
                     })
                     .catch((error) => {
-                      const errorCode = error.code;
-                      const errorMessage = error.message;
                       console.error(error);
                     });
                   e.preventDefault();
@@ -80,7 +82,8 @@ export default function Home() {
                   <Image className={styles.introImage} src="/parents.jpg" height={500} width={500} alt="Les heureux parents"></Image>
                 </div>
                 <form action="#" className={styles.filterControls}>
-                  <select name="category" id="category" onChange={(e) => {
+                  <label>Filtres : </label>
+                  <select className={styles.select} name="category" id="category" value={category} onChange={(e) => {
                     setCategory(e.target.value);
                   }}>
                     <option value="Tout">Sélectionner une catégorie...</option>
@@ -88,13 +91,18 @@ export default function Home() {
                       return(<option value={cat} key={cat}>{cat}</option>)
                       })}
                   </select>
-                  <select name="priority" id="priority" onChange={(e) => {
+                  <select className={styles.select} name="priority" id="priority" value={priority} onChange={(e) => {
                     setPriority(e.target.value);
                   }}>
                     <option value={-1}>Sélectionner une priorité...</option>
                     <option value={0}>Prioritaire</option>
                     <option value={1}>Secondaire</option>
                   </select>
+                  <button className={styles.filterButton} onClick={(e) => {
+                    e.preventDefault();
+                    setPriority(-1);
+                    setCategory("Tout");
+                  }}>Réinitialiser</button>
                 </form>
 
                 {priority >= 0 && <div className={styles.listTitle}>Liste {PRIORITIES[priority]}</div>}
