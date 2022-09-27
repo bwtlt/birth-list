@@ -7,18 +7,26 @@ import Item from './components/Item'
 import styles from '../styles/BirthList.module.scss'
 import { useAuth } from '../context/AuthUserContext';
 
+const email = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMAIL;
 const db = firebase.firestore();
 const CATEGORIES = ["Les repas", "Les sorties", "La chambre", "La toilette", "L'éveil", "Les souvenirs", "Les parents"];
 const PRIORITIES = ["« Prioritaire », nécessaire avant la naissance.", "« Les petits essentielles », peut attendre après la naissance."];
+const Priorities = {
+  All: -1,
+  High: 0,
+  Low: 1,
+}
 
 export default function Home() {
   const [itemsArray, setItemsArray] = useState([]);
   const [category, setCategory] = useState("Tout");
   const [priority, setPriority] = useState(-1);
   const [loading, setLoading] = useState(false);
-  const { authUser, signInWithEmailAndPassword } = useAuth();
-  const email = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMAIL;
   const [password, setPassword] = useState("");
+  const { authUser, signInWithEmailAndPassword } = useAuth();
+  const [highPriorityItems, setHighPriorityItems] = useState([]);
+  const [lowPriorityItems, setLowPriorityItems] = useState([]);
+  const [giftedItems, setGiftedItems] = useState([]);
 
   useEffect(() => {
     if (authUser) {
@@ -27,12 +35,24 @@ export default function Home() {
         querySnapshot.forEach((doc) => {
           const item = doc.data();
           item.id = doc.id;
-          setItemsArray(itemsArray => [...itemsArray, item]);
+          if (item.giftedBy) {
+            setGiftedItems(giftedItems => [...giftedItems, item]);
+          } else if (item.priority == 0) {
+            setHighPriorityItems(highPriorityItems => [...highPriorityItems, item]);
+          } else {
+            setLowPriorityItems(lowPriorityItems => [...lowPriorityItems, item]);
+          }
         });
       });
       setLoading(false);
     }
   }, [authUser])
+
+  const filterItem = (item) => {
+    const categoryMatches = category == "Tout" || item.category == category;
+    return !item.hidden && categoryMatches;
+  };
+
 
   return (
     <div className={styles.container}>
@@ -91,15 +111,16 @@ export default function Home() {
                   }}>
                     <option value="Tout">Sélectionner une catégorie...</option>
                     {CATEGORIES.map((cat) => {
-                      return(<option value={cat} key={cat}>{cat}</option>)
-                      })}
+                      return (<option value={cat} key={cat}>{cat}</option>)
+                    })}
                   </select>
                   <select className={styles.select} name="priority" id="priority" value={priority} onChange={(e) => {
                     setPriority(e.target.value);
+                    ;
                   }}>
-                    <option value={-1}>Sélectionner une priorité...</option>
-                    <option value={0}>Prioritaire</option>
-                    <option value={1}>Secondaire</option>
+                    <option value={Priorities.All}>Sélectionner une priorité...</option>
+                    <option value={Priorities.High}>Prioritaire</option>
+                    <option value={Priorities.Low}>Secondaire</option>
                   </select>
                   <button className={styles.filterButton} onClick={(e) => {
                     e.preventDefault();
@@ -108,18 +129,36 @@ export default function Home() {
                   }}>Réinitialiser</button>
                 </form>
 
-                {priority >= 0 && <div className={styles.listTitle}>Liste {PRIORITIES[priority]}</div>}
                 <div className={styles.sublistTitle}>Categorie : {category}</div>
+                {(priority == Priorities.All || priority == Priorities.High) &&
+                  <>
+                    <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.High]}</div>
+                    <div className={styles.list}>
+                      {highPriorityItems.filter((item) => filterItem(item)).map((item) => {
+                      return (<Item key={item.id} item={item} database={db} />)
+                    })}
+                    </div>
+                  </>
+                }
+                {(priority == Priorities.All || priority == Priorities.Low) &&
+                  <>
+                    <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Low]}</div>
+                    <div className={styles.list}>
+                      {lowPriorityItems.filter((item) => filterItem(item)).map((item) => {
+                        return (<Item key={item.id} item={item} database={db} />)
+                      })}
+                    </div>
+                  </>
+                }
+                <>
+                  <div className={styles.listTitle}>Déjà offerts</div>
+                  <div className={styles.list}>
+                    {giftedItems.filter((item) => filterItem(item)).map((item) => {
+                      return (<Item key={item.id} item={item} database={db} />)
+                    })}
+                  </div>
+                </>
 
-                <div className={styles.list}>
-                  {itemsArray.filter((item) => {
-                    const hasPriority = priority == -1 || item.priority == priority;
-                    const hasCategory = category == "Tout" || item.category == category;
-                    return !item.hidden && hasPriority && hasCategory;
-                  }).map((item) => {
-                    return (<Item key={item.id} item={item} database={db} />)
-                  })}
-                </div>
               </>
             }
           </div>
