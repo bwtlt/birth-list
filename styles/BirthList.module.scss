@@ -59,8 +59,12 @@ $light-yellow: #FDE8C4;
     align-items: center;
 }
 
+.introText {
+    text-align: justify;
+}
+
 .introImage {
-    border-radius: 50%;
+    //border-radius: 50%;
 }
 
 .gifterForm {
@@ -122,6 +126,13 @@ $light-yellow: #FDE8C4;
 
 .itemName {
     font-weight: 500;
+}
+
+.introImageContainer {
+  position: relative;
+  height: 20rem;
+  min-width: 25rem;
+  clip-path: circle(31.2% at 179px 160px);
 }
 
 .itemImageContainer {

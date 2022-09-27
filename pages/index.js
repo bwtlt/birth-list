@@ -75,11 +75,14 @@ export default function Home() {
               <>
                 <div className={styles.intro}>
                   <div className={styles.introText}>
-                    <p>Cela fait six mois que nous nous préparons à l’arrivée de notre petite fille. Vous vous projetez avec nous dans ce nouveau chapitre de notre vie et cela nous touche profondément. Vous nous demandez souvent ce qui nous ferait plaisir, ce dont nous aurions besoin ou comment nous aider à accueillir au mieux notre petit bout de chou dans notre maison roulante.</p>
-                    <p>Alors avec Bertrand nous avons listé nos envies ci-dessous, et on aimerait beaucoup que vous privilégiez dans la mesure du possible des produits de seconde main ou fait main : qu’ils proviennent de votre garage, de Vinted, du bon coin, de créateurs et autres ça nous ferait très plaisir.</p>
+                    <p>Cela fait sept mois que nous nous préparons à l’arrivée de notre petite fille. Vous vous projetez avec nous dans ce nouveau chapitre de notre vie et cela nous touche profondément. Vous nous demandez souvent ce qui nous ferait plaisir, ce dont nous aurions besoin ou comment nous aider à accueillir au mieux notre petit bout de chou dans notre maison roulante.</p>
+                    <p>Alors nous avons listé nos envies ci-dessous, et on aimerait beaucoup que vous privilégiez dans la mesure du possible des produits de seconde main ou fait main : qu’ils proviennent de votre garage, de Vinted, du bon coin, de créateurs et autres ça nous ferait très plaisir.</p>
+                    <p>La plupart des articles sont disponibles chez Autour de Bébé, Aubert, Bébé9, etc. Les prix indiqués sont les plus bas que nous avons observés en magasin.</p>
                     <p>Pour les achats chez Autour De Bébé, nous avons une carte fidélité au nom de Laëtitia Watelet.</p>
                   </div>
-                  <Image className={styles.introImage} src="/parents.jpg" height={500} width={500} alt="Les heureux parents"></Image>
+                  <div className={styles.introImageContainer}>
+                    <Image className={styles.introImage} src="/parents.png" layout="fill" objectFit="contain" alt="Les heureux parents"></Image>
+                  </div>
                 </div>
                 <form action="#" className={styles.filterControls}>
                   <label>Filtres : </label>
