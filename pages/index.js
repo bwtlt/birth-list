@@ -95,10 +95,35 @@ export default function Home() {
               <>
                 <div className={styles.intro}>
                   <div className={styles.introText}>
-                    <p>Cela fait sept mois que nous nous préparons à l’arrivée de notre petite fille. Vous vous projetez avec nous dans ce nouveau chapitre de notre vie et cela nous touche profondément. Vous nous demandez souvent ce qui nous ferait plaisir, ce dont nous aurions besoin ou comment nous aider à accueillir au mieux notre petit bout de chou dans notre maison roulante.</p>
-                    <p>Alors nous avons listé nos envies ci-dessous, et on aimerait beaucoup que vous privilégiez dans la mesure du possible des produits de seconde main ou fait main : qu’ils proviennent de votre garage, de Vinted, du bon coin, de créateurs et autres ça nous ferait très plaisir.</p>
-                    <p>La plupart des articles sont disponibles chez Autour de Bébé, Aubert, Bébé9, etc. Les prix indiqués sont les plus bas que nous avons observés en magasin.</p>
-                    <p>Pour les achats chez Autour De Bébé, nous avons une carte fidélité au nom de Laëtitia Watelet.</p>
+                    <p>
+                      Cela fait sept mois que nous préparons l’arrivée de notre petite fille.
+                      Tu te projètes avec nous dans ce nouveau chapitre de notre vie et cela nous touche profondément.
+                      On nous demande souvent ce qui nous ferait plaisir et ce dont nous aurions besoin pour accueillir au mieux notre petit bout de chou dans notre maison roulante.
+                    </p>
+
+                    <p>Alors Tadam !! voilà THE List ! En réalité il y en a deux :  une avec les articles dont nous aurions besoin avant sa naissance et l&apos;autre qui peut attendre sa venue au monde. </p>
+
+                    <p>
+                      <span className={styles.question}>Comment ça marche ?</span>
+                      <br></br>
+                      C&apos;est super simple, tu te positionnes sur un article à offrir, tu cliques sur &quot;j&apos;offre ce cadeau&quot; en indiquant ton prénom pour valider.
+                      Ensuite, à toi de te rendre en magasin ou sur internet pour acheter l&apos;article.
+                      Il peut aussi provenir de ton garage, de Vinted ou du fait main, ce qui nous ferait très plaisir !
+                      Pas besoin de paquet cadeau, bon si, j&apos;avoue : un petit noeud rose c&apos;est toujours la classe.
+                      Et le tour est joué !
+                    </p>
+                    <p>
+                      La plupart des liens que nous avons mis proviennent du magasin Autour de bébé où nous avons une carte fidélité au nom de &quot;Laëtitia Watelet&quot;, n&apos;hésitez pas à l&apos;utiliser.
+                      Cependant si c&apos;est plus pratique pour toi ces articles sont surement disponibles chez Aubert, Bébé9, etc.
+                    </p>
+
+                    <p>
+                      <span className={styles.question}>J&apos;ai fait une erreur d&apos;article ou de manipulation, je souhaite changer d&apos;article... comment faire ?</span>
+                      <br></br>
+                      Envoie nous un message, on annulera le problème.
+                    </p>
+
+                    <p>On te laisse découvrir tout ça, à bientôt et merci !</p>
                   </div>
                   <div className={styles.introImageContainer}>
                     <Image className={styles.introImage} src="/parents.png" layout="fill" objectFit="contain" alt="Les heureux parents"></Image>
@@ -135,8 +160,8 @@ export default function Home() {
                     <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.High]}</div>
                     <div className={styles.list}>
                       {highPriorityItems.filter((item) => filterItem(item)).map((item) => {
-                      return (<Item key={item.id} item={item} database={db} />)
-                    })}
+                        return (<Item key={item.id} item={item} database={db} />)
+                      })}
                     </div>
                   </>
                 }
