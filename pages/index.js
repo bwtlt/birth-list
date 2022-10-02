@@ -71,23 +71,21 @@ export default function Home() {
         <div className={styles.body}>
           {loading && <div>Chargement en cours...</div>}
           {!loading && authUser === null &&
-            <div className={styles.login}>
-              <form onSubmit={async (e) => {
-                setLoading(true);
-                signInWithEmailAndPassword(email, password)
-                  .then((userCredential) => {
-                    console.log("Log in succesful")
-                  })
-                  .catch((error) => {
-                    console.error(error);
-                  });
-                e.preventDefault();
-              }}>
-                <label htmlFor="password">Mot de passe : </label>
-                <input type="password" id="password" name="password" required onChange={(event) => setPassword(event.target.value)} />
-                <input type="submit" value="Entrer" />
-              </form>
-            </div>
+            <form className={styles.login} onSubmit={async (e) => {
+              setLoading(true);
+              signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                  console.log("Log in succesful")
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
+              e.preventDefault();
+            }}>
+              <label htmlFor="password">Mot de passe : </label>
+              <input className={styles.passwordField} type="password" id="password" name="password" required onChange={(event) => setPassword(event.target.value)} />
+              <input type="submit" value="Entrer" className={styles.gifterFormButton}/>
+            </form>
           }
           {authUser &&
             <>

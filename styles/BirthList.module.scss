@@ -52,6 +52,7 @@ $fuschia: #EA4C89;
 .body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 100%;
 }
 
@@ -95,19 +96,27 @@ $fuschia: #EA4C89;
   flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: center;
-}
-
-.gifterFormFields {
-  display: flex;
-  flex-direction: row;
   align-items: center;
   width: auto;
   gap: 0.2em;
 }
 
+@media (max-width: 768px) {
+  .gifterForm {
+    flex-direction: column;
+  }
+}
+
 .listTitle {
   font-size: 1.5rem;
   padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .listTitle {
+    font-size: 1rem;
+    font-weight: 600;
+  }
 }
 
 .list {
@@ -135,10 +144,12 @@ $fuschia: #EA4C89;
 
 .itemSpecs {
     margin: 1em;
+    padding: 0 1em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     row-gap: 0.6rem;
+    width: 100%;
 }
 
 .itemInfo {
@@ -248,7 +259,7 @@ $fuschia: #EA4C89;
 
 @media (max-width: 768px) {
   .giftButton {
-    margin-bottom: 1rem;
+    margin-bottom: 1.6rem;
   }
 }
 
@@ -275,10 +286,21 @@ $fuschia: #EA4C89;
   touch-action: manipulation;
 }
 
+@media (max-width: 768px) {
+  .gifted {
+    margin-bottom: 1rem;
+  }
+}
+
 .gifterFormButtons {
   padding-left: 5px;
   display: flex;
+  flex-direction: row;
+  justify-content: stretch;
   gap: 5px;
+}
+
+@media (max-width: 768px) {
 }
 
 .gifterFormButton {
@@ -506,6 +528,7 @@ $option: #320a28;
 
 .gifter {
   color: #BD7B7B;
+  white-space: nowrap;
 }
 
 .question {
@@ -527,4 +550,34 @@ $option: #320a28;
   flex-direction: row;
   align-items: center;
   gap: 5px;
+}
+
+@media (max-width: 768px) {
+  .giftedContainer {
+    flex-direction: column;
+  }
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: $pink;
+  gap: 5px;
+  margin: 1em 0;
+  padding: 1em 0;
+  width: auto;
+  border-radius: 20px;
+}
+
+.passwordField {
+  height: 40px;
+}
+
+@media (max-width: 768px) {
+  .login {
+    flex-direction: column;
+    justify-content: stretch;
+  }
 }

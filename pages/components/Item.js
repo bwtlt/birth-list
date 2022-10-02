@@ -45,12 +45,12 @@ export default function Item(props) {
                     });
             }
         }}>
-            <div className={styles.gifterFormFields}>
-                <input className={styles.formField} type="text" name="name" id="name" placeholder="Votre nom" onChange={
-                    (e) => {
-                        setName(e.target.value);
-                    }
-                }/>
+            <input className={styles.formField} type="text" name="name" id="name" placeholder="Votre nom" onChange={
+                (e) => {
+                    setName(e.target.value);
+                }
+            }/>
+            <div className={styles.gifterFormButtons}>
                 <button className={styles.gifterFormButton} type="submit">Ok</button>
                 <button className={styles.gifterFormButton} onClick={() => { setShowNameField(false) }}>Annuler</button>
             </div>
