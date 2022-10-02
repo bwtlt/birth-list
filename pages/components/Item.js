@@ -5,6 +5,7 @@ import styles from '../../styles/BirthList.module.scss'
 export default function Item(props) {
     const item = props.item;
     const [showNameField, setShowNameField] = useState(false);
+    const [name, setName] = useState("");
     const [giftedBy, setGiftedBy] = useState(item?.giftedBy);
     let component;
     let image = "/items/dejaoffert.jpeg";
@@ -14,11 +15,15 @@ export default function Item(props) {
     }
 
     if (giftedBy) {
-        component = <div className={styles.gifted}>Déjà offert</div>;
+        component = <div className={styles.giftedContainer}>
+            <div className={styles.gifter}>
+                Merci à {giftedBy} !
+            </div>
+            <div className={styles.gifted}>Déjà offert</div>
+        </div>
     } else if (showNameField) {
         component = <form className={styles.gifterForm} onSubmit={async (e) => {
             e.preventDefault();
-            const name = document.querySelector('#name').value
 
             setShowNameField(false);
 
@@ -31,19 +36,23 @@ export default function Item(props) {
                 return itemRef.update({
                     giftedBy: name
                 })
-                .then(() => {
-                    console.log("Document successfully updated!");
-                })
-                .catch((error) => {
-                    // The document probably doesn't exist.
-                    console.error("Error updating document: ", error);
-                });
+                    .then(() => {
+                        console.log("Document successfully updated!");
+                    })
+                    .catch((error) => {
+                        // The document probably doesn't exist.
+                        console.error("Error updating document: ", error);
+                    });
             }
         }}>
             <div className={styles.gifterFormFields}>
-                <input type="text" name="name" id="name" placeholder="Votre nom"/>
+                <input className={styles.formField} type="text" name="name" id="name" placeholder="Votre nom" onChange={
+                    (e) => {
+                        setName(e.target.value);
+                    }
+                }/>
                 <button className={styles.gifterFormButton} type="submit">Ok</button>
-                <button className={styles.gifterFormButton} onClick={() => {setShowNameField(false)}}>Annuler</button>
+                <button className={styles.gifterFormButton} onClick={() => { setShowNameField(false) }}>Annuler</button>
             </div>
         </form>
     } else {
@@ -51,7 +60,7 @@ export default function Item(props) {
             () => { setShowNameField(true) }
         }>J&apos;offre ce cadeau</button>;
     }
-    
+
     return (
         <>
             <div className={styles.item}>
@@ -65,10 +74,6 @@ export default function Item(props) {
                         {item?.price && <div className={styles.itemPrice}>{item?.price}€</div>}
                         {item?.link && <a href={item?.link} className={styles.itemLink}>Lien</a>}
                     </div>
-                    {giftedBy &&
-                        <div className={styles.gifter}>
-                            Merci à {giftedBy} !
-                      </div>}
                     {component}
                 </div>
             </div>

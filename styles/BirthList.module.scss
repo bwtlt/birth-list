@@ -7,6 +7,7 @@ $light-pink: #FBDEDA;
 $light-pink-2: #fee6e3;
 $yellow: #FAC05E;
 $light-yellow: #FDE8C4;
+$fuschia: #EA4C89;
 
 .container {
   color: $black;
@@ -64,19 +65,18 @@ $light-yellow: #FDE8C4;
     text-align: justify;
 }
 
-.introImage {
-    //border-radius: 50%;
-}
-
 .gifterForm {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .gifterFormFields {
   display: flex;
   flex-direction: row;
+  align-items: center;
   width: auto;
   gap: 0.2em;
 }
@@ -241,8 +241,14 @@ $light-yellow: #FDE8C4;
   touch-action: manipulation;
 }
 
+.gifterFormButtons {
+  padding-left: 5px;
+  display: flex;
+  gap: 5px;
+}
+
 .gifterFormButton {
-  background-color: #EA4C89;
+  background-color: $fuschia;
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
@@ -480,4 +486,20 @@ $option: #320a28;
 .question {
   font-style: italic;
   font-weight: bold;
+}
+
+.formGroup {
+  display: flex;
+  gap: 5px;
+}
+
+.formField {
+  height: 40px;
+}
+
+.giftedContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
 }
