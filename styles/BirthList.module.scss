@@ -11,7 +11,13 @@ $fuschia: #EA4C89;
 
 .container {
   color: $black;
-  padding: 0 2rem;
+  padding: 0 6rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
 }
 
 .main {
@@ -24,6 +30,12 @@ $fuschia: #EA4C89;
   align-items: center;
 }
 
+@media (max-width: 768px) {
+  .main {
+    padding: 2rem 0;
+  }
+}
+
 .header {
     display: flex;
     flex-direction: row;
@@ -31,10 +43,16 @@ $fuschia: #EA4C89;
     width: 100%;
 }
 
+@media (max-width: 768px) {
+  .header {
+    align-items: center;
+  }
+}
+
 .body {
     display: flex;
     flex-direction: column;
-    padding: 0 4rem;
+    width: 100%;
 }
 
 .footer {
@@ -59,6 +77,12 @@ $fuschia: #EA4C89;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 1000px) {
+  .intro {
+    flex-direction: column;
+  }
 }
 
 .introText {
@@ -125,6 +149,15 @@ $fuschia: #EA4C89;
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .item {
+    flex-direction: column;
+  }
+  .itemInfo {
+    flex-direction: column;
+  }
+}
+
 .itemName {
     font-weight: 500;
 }
@@ -141,6 +174,7 @@ $fuschia: #EA4C89;
   height: 8rem;
   min-width: 8rem;
   clip-path: circle(40%);
+  background-color: white;
 }
 
 .giftedItemImage {
@@ -212,9 +246,9 @@ $fuschia: #EA4C89;
   outline: 0;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .giftButton {
-    padding: 0 40px;
+    margin-bottom: 1rem;
   }
 }
 
@@ -294,6 +328,14 @@ $fuschia: #EA4C89;
   margin: 0;
   line-height: 1.15;
   font-size: 2rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
 }
 
 .title,
@@ -314,14 +356,6 @@ $fuschia: #EA4C89;
   font-size: 1.1rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
 }
 
 .card {
@@ -355,16 +389,14 @@ $fuschia: #EA4C89;
 }
 
 .logo {
-  background-color: grey;
   height: 40px;
   width: 40px;
   margin: 0 .5rem;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
+@media (max-width: 768px) {
+  .logo {
+
   }
 }
 
@@ -393,7 +425,7 @@ $option: #320a28;
   outline: 0;
   font: inherit;
   /* Personalize */
-  width: 20em;
+  width: 15em;
   height: 3em;
   padding: 0 4em 0 1em;
   background: url(https://upload.wikimedia.org/wikipedia/commons/9/9a/Caret_down_font_awesome.svg)
@@ -410,6 +442,12 @@ $option: #320a28;
   /* Remove focus outline */
   &:focus {
     outline: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .filterControls {
+    flex-direction: column;
   }
 }
 

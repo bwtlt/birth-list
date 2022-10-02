@@ -18,7 +18,6 @@ const Priorities = {
 }
 
 export default function Home() {
-  const [itemsArray, setItemsArray] = useState([]);
   const [category, setCategory] = useState("Tout");
   const [priority, setPriority] = useState(-1);
   const [loading, setLoading] = useState(false);
@@ -63,132 +62,130 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <div className={styles.logo}>
-              <Image src="/logo.svg" alt="Vercel Logo" width={40} height={40} />
-            </div>
-            <div className={styles.title}>La liste de naissance de bébé Waka</div>
+        <div className={styles.header}>
+          <div className={styles.logo}>
+            <Image src="/logo.svg" alt="Vercel Logo" width={40} height={40} />
           </div>
-          <div className={styles.body}>
-            {loading && <div>Chargement en cours...</div>}
-            {!loading && authUser === null &&
-              <div className={styles.login}>
-                <form onSubmit={async (e) => {
-                  setLoading(true);
-                  signInWithEmailAndPassword(email, password)
-                    .then((userCredential) => {
-                      console.log("Log in succesful")
-                    })
-                    .catch((error) => {
-                      console.error(error);
-                    });
-                  e.preventDefault();
-                }}>
-                  <label htmlFor="password">Mot de passe : </label>
-                  <input type="password" id="password" name="password" required onChange={(event) => setPassword(event.target.value)} />
-                  <input type="submit" value="Entrer" />
-                </form>
-              </div>
-            }
-            {authUser &&
-              <>
-                <div className={styles.intro}>
-                  <div className={styles.introText}>
-                    <p>
-                      Cela fait sept mois que nous préparons l’arrivée de notre petite fille.
-                      Tu te projètes avec nous dans ce nouveau chapitre de notre vie et cela nous touche profondément.
-                      On nous demande souvent ce qui nous ferait plaisir et ce dont nous aurions besoin pour accueillir au mieux notre petit bout de chou dans notre maison roulante.
-                    </p>
+          <div className={styles.title}>La liste de naissance de bébé Waka</div>
+        </div>
+        <div className={styles.body}>
+          {loading && <div>Chargement en cours...</div>}
+          {!loading && authUser === null &&
+            <div className={styles.login}>
+              <form onSubmit={async (e) => {
+                setLoading(true);
+                signInWithEmailAndPassword(email, password)
+                  .then((userCredential) => {
+                    console.log("Log in succesful")
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+                e.preventDefault();
+              }}>
+                <label htmlFor="password">Mot de passe : </label>
+                <input type="password" id="password" name="password" required onChange={(event) => setPassword(event.target.value)} />
+                <input type="submit" value="Entrer" />
+              </form>
+            </div>
+          }
+          {authUser &&
+            <>
+              <div className={styles.intro}>
+                <div className={styles.introText}>
+                  <p>
+                    Cela fait sept mois que nous préparons l’arrivée de notre petite fille.
+                    Tu te projètes avec nous dans ce nouveau chapitre de notre vie et cela nous touche profondément.
+                    On nous demande souvent ce qui nous ferait plaisir et ce dont nous aurions besoin pour accueillir au mieux notre petit bout de chou dans notre maison roulante.
+                  </p>
 
-                    <p>Alors Tadam !! voilà THE List ! En réalité il y en a deux :  une avec les articles dont nous aurions besoin avant sa naissance et l&apos;autre qui peut attendre sa venue au monde. </p>
+                  <p>Alors Tadam !! voilà THE List ! En réalité il y en a deux :  une avec les articles dont nous aurions besoin avant sa naissance et l&apos;autre qui peut attendre sa venue au monde. </p>
 
-                    <p>
-                      <span className={styles.question}>Comment ça marche ?</span>
-                      <br></br>
-                      C&apos;est super simple, tu te positionnes sur un article à offrir, tu cliques sur &quot;j&apos;offre ce cadeau&quot; en indiquant ton prénom pour valider.
-                      Ensuite, à toi de te rendre en magasin ou sur internet pour acheter l&apos;article.
-                      Il peut aussi provenir de ton garage, de Vinted ou du fait main, ce qui nous ferait très plaisir !
-                      Pas besoin de paquet cadeau, bon si, j&apos;avoue : un petit noeud rose c&apos;est toujours la classe.
-                      Et le tour est joué !
-                    </p>
-                    <p>
-                      La plupart des liens que nous avons mis proviennent du magasin Autour de bébé où nous avons une carte fidélité au nom de &quot;Laëtitia Watelet&quot;, n&apos;hésitez pas à l&apos;utiliser.
-                      Cependant si c&apos;est plus pratique pour toi ces articles sont surement disponibles chez Aubert, Bébé9, etc.
-                    </p>
+                  <p>
+                    <span className={styles.question}>Comment ça marche ?</span>
+                    <br></br>
+                    C&apos;est super simple, tu te positionnes sur un article à offrir, tu cliques sur &quot;j&apos;offre ce cadeau&quot; en indiquant ton prénom pour valider.
+                    Ensuite, à toi de te rendre en magasin ou sur internet pour acheter l&apos;article.
+                    Il peut aussi provenir de ton garage, de Vinted ou du fait main, ce qui nous ferait très plaisir !
+                    Pas besoin de paquet cadeau, bon si, j&apos;avoue : un petit noeud rose c&apos;est toujours la classe.
+                    Et le tour est joué !
+                  </p>
+                  <p>
+                    La plupart des liens que nous avons mis proviennent du magasin Autour de bébé où nous avons une carte fidélité au nom de &quot;Laëtitia Watelet&quot;, n&apos;hésite pas à l&apos;utiliser.
+                    Cependant si c&apos;est plus pratique pour toi ces articles sont surement disponibles chez Aubert, Bébé9, etc.
+                  </p>
 
-                    <p>
-                      <span className={styles.question}>J&apos;ai fait une erreur d&apos;article ou de manipulation, je souhaite changer d&apos;article... comment faire ?</span>
-                      <br></br>
-                      Envoie nous un message, on annulera le problème.
-                    </p>
+                  <p>
+                    <span className={styles.question}>J&apos;ai fait une erreur d&apos;article ou de manipulation, je souhaite changer d&apos;article... comment faire ?</span>
+                    <br></br>
+                    Envoie nous un message, on annulera le problème.
+                  </p>
 
-                    <p>On te laisse découvrir tout ça, à bientôt et merci !</p>
-                  </div>
-                  <div className={styles.introImageContainer}>
-                    <Image className={styles.introImage} src="/parents.png" layout="fill" objectFit="contain" alt="Les heureux parents"></Image>
-                  </div>
+                  <p>On te laisse découvrir tout ça, à bientôt et merci !</p>
                 </div>
-                <form action="#" className={styles.filterControls}>
-                  <label>Filtres : </label>
-                  <select className={styles.select} name="category" id="category" value={category} onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}>
-                    <option value="Tout">Sélectionner une catégorie...</option>
-                    {CATEGORIES.map((cat) => {
-                      return (<option value={cat} key={cat}>{cat}</option>)
-                    })}
-                  </select>
-                  <select className={styles.select} name="priority" id="priority" value={priority} onChange={(e) => {
-                    setPriority(e.target.value);
-                    ;
-                  }}>
-                    <option value={Priorities.All}>Sélectionner une priorité...</option>
-                    <option value={Priorities.High}>Prioritaire</option>
-                    <option value={Priorities.Low}>Secondaire</option>
-                  </select>
-                  <button className={styles.filterButton} onClick={(e) => {
-                    e.preventDefault();
-                    setPriority(-1);
-                    setCategory("Tout");
-                  }}>Réinitialiser</button>
-                </form>
+                <div className={styles.introImageContainer}>
+                  <Image className={styles.introImage} src="/parents.png" layout="fill" objectFit="contain" alt="Les heureux parents"></Image>
+                </div>
+              </div>
+              <form action="#" className={styles.filterControls}>
+                <label>Filtres : </label>
+                <select className={styles.select} name="category" id="category" value={category} onChange={(e) => {
+                  setCategory(e.target.value);
+                }}>
+                  <option value="Tout">Catégorie...</option>
+                  {CATEGORIES.map((cat) => {
+                    return (<option value={cat} key={cat}>{cat}</option>)
+                  })}
+                </select>
+                <select className={styles.select} name="priority" id="priority" value={priority} onChange={(e) => {
+                  setPriority(e.target.value);
+                  ;
+                }}>
+                  <option value={Priorities.All}>Priorité...</option>
+                  <option value={Priorities.High}>Prioritaire</option>
+                  <option value={Priorities.Low}>Secondaire</option>
+                </select>
+                <button className={styles.filterButton} onClick={(e) => {
+                  e.preventDefault();
+                  setPriority(-1);
+                  setCategory("Tout");
+                }}>Réinitialiser</button>
+              </form>
 
-                <div className={styles.sublistTitle}>Categorie : {category}</div>
-                {(priority == Priorities.All || priority == Priorities.High) &&
-                  <>
-                    <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.High]}</div>
-                    <div className={styles.list}>
-                      {highPriorityItems.filter((item) => filterItem(item)).map((item) => {
-                        return (<Item key={item.id} item={item} database={db} />)
-                      })}
-                    </div>
-                  </>
-                }
-                {(priority == Priorities.All || priority == Priorities.Low) &&
-                  <>
-                    <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Low]}</div>
-                    <div className={styles.list}>
-                      {lowPriorityItems.filter((item) => filterItem(item)).map((item) => {
-                        return (<Item key={item.id} item={item} database={db} />)
-                      })}
-                    </div>
-                  </>
-                }
+              <div className={styles.sublistTitle}>Categorie : {category}</div>
+              {(priority == Priorities.All || priority == Priorities.High) &&
                 <>
-                  <div className={styles.listTitle}>Déjà offerts</div>
+                  <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.High]}</div>
                   <div className={styles.list}>
-                    {giftedItems.filter((item) => filterItem(item)).map((item) => {
+                    {highPriorityItems.filter((item) => filterItem(item)).map((item) => {
                       return (<Item key={item.id} item={item} database={db} />)
                     })}
                   </div>
                 </>
-
+              }
+              {(priority == Priorities.All || priority == Priorities.Low) &&
+                <>
+                  <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Low]}</div>
+                  <div className={styles.list}>
+                    {lowPriorityItems.filter((item) => filterItem(item)).map((item) => {
+                      return (<Item key={item.id} item={item} database={db} />)
+                    })}
+                  </div>
+                </>
+              }
+              <>
+                <div className={styles.listTitle}>Déjà offerts</div>
+                <div className={styles.list}>
+                  {giftedItems.filter((item) => filterItem(item)).map((item) => {
+                    return (<Item key={item.id} item={item} database={db} />)
+                  })}
+                </div>
               </>
-            }
-          </div>
-          <div className={styles.footer}>Site créé par L&B</div>
+
+            </>
+          }
         </div>
+        <div className={styles.footer}>Site créé par L&B</div>
       </main>
     </div>
   )
