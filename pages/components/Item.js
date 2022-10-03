@@ -71,7 +71,7 @@ export default function Item(props) {
                     <div className={styles.itemSpecs}>
                         <div className={styles.itemName}>{item?.name}</div>
                         {item?.description && <div className={styles.itemDescription}>{item?.description.replaceAll("\\n", "\n")}</div>}
-                        {item?.price && <div className={styles.itemPrice}>{item?.price}€</div>}
+                        {(!giftedBy && item?.price) && <div className={styles.itemPrice}>{item?.price}€</div>}
                         {item?.link && <a href={item?.link} className={styles.itemLink}>Lien</a>}
                     </div>
                     {component}

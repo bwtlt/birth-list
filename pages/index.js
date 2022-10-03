@@ -10,11 +10,16 @@ import { useAuth } from '../context/AuthUserContext';
 const email = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMAIL;
 const db = firebase.firestore();
 const CATEGORIES = ["Les repas", "Les sorties", "La chambre", "La toilette", "L'éveil", "Les souvenirs", "Les parents"];
-const PRIORITIES = ["« Prioritaire », nécessaire avant la naissance.", "« Les petits essentielles », peut attendre après la naissance."];
+const PRIORITIES = [
+  "« Prioritaire », nécessaire avant la naissance.",
+  "« Les petits essentielles », peut attendre après la naissance.",
+  "« Les petits plus »",
+];
 const Priorities = {
   All: -1,
   High: 0,
   Low: 1,
+  Sub: 2,
 }
 
 export default function Home() {
@@ -25,6 +30,7 @@ export default function Home() {
   const { authUser, signInWithEmailAndPassword } = useAuth();
   const [highPriorityItems, setHighPriorityItems] = useState([]);
   const [lowPriorityItems, setLowPriorityItems] = useState([]);
+  const [subPriorityItems, setSubPriorityItems] = useState([]);
   const [giftedItems, setGiftedItems] = useState([]);
 
   useEffect(() => {
@@ -36,10 +42,12 @@ export default function Home() {
           item.id = doc.id;
           if (item.giftedBy) {
             setGiftedItems(giftedItems => [...giftedItems, item]);
-          } else if (item.priority == 0) {
+          } else if (item.priority == Priorities.High) {
             setHighPriorityItems(highPriorityItems => [...highPriorityItems, item]);
-          } else {
+          } else if (item.priority == Priorities.Low) {
             setLowPriorityItems(lowPriorityItems => [...lowPriorityItems, item]);
+          } else {
+            setSubPriorityItems(subPriorityItems => [...subPriorityItems, item]);
           }
         });
       });
@@ -142,6 +150,7 @@ export default function Home() {
                   <option value={Priorities.All}>Priorité...</option>
                   <option value={Priorities.High}>Prioritaire</option>
                   <option value={Priorities.Low}>Secondaire</option>
+                  <option value={Priorities.Sub}>Les petits plus</option>
                 </select>
                 <button className={styles.filterButton} onClick={(e) => {
                   e.preventDefault();
@@ -166,6 +175,16 @@ export default function Home() {
                   <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Low]}</div>
                   <div className={styles.list}>
                     {lowPriorityItems.filter((item) => filterItem(item)).map((item) => {
+                      return (<Item key={item.id} item={item} database={db} />)
+                    })}
+                  </div>
+                </>
+              }
+              {(priority == Priorities.All || priority == Priorities.Sub) &&
+                <>
+                  <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Sub]}</div>
+                  <div className={styles.list}>
+                    {subPriorityItems.filter((item) => filterItem(item)).map((item) => {
                       return (<Item key={item.id} item={item} database={db} />)
                     })}
                   </div>
