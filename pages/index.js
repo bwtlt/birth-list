@@ -105,7 +105,7 @@ export default function Home() {
                     On nous demande souvent ce qui nous ferait plaisir et ce dont nous aurions besoin pour accueillir au mieux notre petit bout de chou dans notre maison roulante.
                   </p>
 
-                  <p>Alors Tadam !! voilà THE List ! En réalité il y en a deux :  une avec les articles dont nous aurions besoin avant sa naissance et l&apos;autre qui peut attendre sa venue au monde. </p>
+                  <p>Alors Tadam !! voilà THE List ! En réalité il y en a trois :  une avec les articles dont nous aurions besoin avant sa naissance, une qui peut attendre sa venue au monde et une dernière avec des petits extras. </p>
 
                   <p>
                     <span className={styles.question}>Comment ça marche ?</span>

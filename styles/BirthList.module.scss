@@ -581,3 +581,9 @@ $option: #320a28;
     justify-content: stretch;
   }
 }
+
+.giftingButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
