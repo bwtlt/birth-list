@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 import Item from './components/Item'
+import Script from "next/script";
 import styles from '../styles/BirthList.module.scss'
 import { useAuth } from '../context/AuthUserContext';
 
@@ -70,6 +71,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <Script src="https://kit.fontawesome.com/c9688da9a5.js" crossorigin="anonymous"></Script>
         <div className={styles.header}>
           <div className={styles.logo}>
             <Image src="/logo.svg" alt="Vercel Logo" width={40} height={40} />

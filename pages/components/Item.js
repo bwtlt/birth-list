@@ -10,6 +10,7 @@ export default function Item(props) {
     const [address, setAddress] = useState("");
     const [giftedBy, setGiftedBy] = useState(item?.giftedBy);
     const [participants, setParticipants] = useState(item?.participants ? item?.participants : []);
+    const [showParticipants, setShowParticipants] = useState(false);
     let component;
     let image = "/items/dejaoffert.jpeg";
 
@@ -100,6 +101,18 @@ export default function Item(props) {
                                 {item?.description.replaceAll("\\n", "\n")}
                                 {item?.share && <p>Possibilité de participer en groupe à ce cadeau. Inscris ton adresse mail pour que nous te mettions en lien avec les autres personnes qui souhaitent aussi y participer.</p>}
                             </div>}
+                        {participants.length > 0 &&
+                            <div className={styles.participants}>
+                                <a className={styles.showParticipants} href="#" onClick={(e) => {
+                                    e.preventDefault();
+                                    setShowParticipants(!showParticipants);
+                                }}>
+                                    {showParticipants ? <i className="fa-solid fa-square-minus" /> : <i className="fa-solid fa-square-plus" />}
+                                    Voir les participants
+                                </a>
+                                {showParticipants && participants.map((p) => { return <li className={styles.participant} key={p}>{p}</li>; })}
+                            </div>
+                        }
                         {(!giftedBy && item?.price) && <div className={styles.itemPrice}>{item?.price}€</div>}
                         {item?.link && <a href={item?.link} className={styles.itemLink}>Lien</a>}
                     </div>

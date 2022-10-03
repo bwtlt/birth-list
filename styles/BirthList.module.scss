@@ -587,3 +587,27 @@ $option: #320a28;
   flex-direction: column;
   gap: 1rem;
 }
+
+.showParticipants {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: .4rem;
+  font-weight: 200;
+}
+
+.participants {
+  background-color: $light-pink-2;
+  padding: .5rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  overflow: auto;
+  width: fit-content;
+}
+
+.participant {
+  color: $blue;
+  font-weight: 100;
+}
