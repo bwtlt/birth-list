@@ -46,7 +46,7 @@ export default function Home() {
         querySnapshot.forEach((doc) => {
           const item = doc.data();
           item.id = doc.id;
-          if (item.giftedBy) {
+          if (item.giftedBy && !item?.number) {
             setGiftedItems(giftedItems => [...giftedItems, item]);
           } else if (item.priority == Priorities.High) {
             setHighPriorityItems(highPriorityItems => [...highPriorityItems, item]);
@@ -58,6 +58,7 @@ export default function Home() {
         });
       });
       setLoading(false);
+      console.log("Items retrieved succesfully");
       setLoadedDb(true);
     }
   }, [authUser, loadedDb])

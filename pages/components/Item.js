@@ -7,8 +7,11 @@ export default function Item(props) {
     const [showNameField, setShowNameField] = useState(false);
     const [showAddressField, setShowAddressField] = useState(false);
     const [name, setName] = useState("");
+    const [number, setNumber] = useState(0);
     const [address, setAddress] = useState("");
     const [giftedBy, setGiftedBy] = useState(item?.giftedBy);
+    const [gifters, setGifters] = useState(item?.gifters);
+    const [numberGifted, setNumberGifted] = useState(item?.numberGifted);
     const [participants, setParticipants] = useState(item?.participants ? item?.participants : []);
     const [showParticipants, setShowParticipants] = useState(false);
     let component;
@@ -38,10 +41,25 @@ export default function Item(props) {
             } else {
                 let updater = {};
                 if (showNameField && name) {
-                    setGiftedBy(name)
-                    updater = {
-                        giftedBy: name
-                    };
+                    if (item?.number && number > 0) {
+                        let giftersField = gifters;
+                        if (!giftersField) {
+                            giftersField = name;
+                        } else {
+                            giftersField += `, ${name}`;
+                        }
+                        setGifters(giftersField);
+                        updater.gifters = giftersField;
+                        if (numberGifted) {
+                            updater.numberGifted = numberGifted + parseInt(number, 10);
+                        } else {
+                            updater.numberGifted = parseInt(number, 10);
+                        }
+                        setNumberGifted(updater.numberGifted);
+                    } else {
+                        setGiftedBy(name)
+                        updater.giftedBy = name
+                    }
                 } else if (showAddressField && address) {
                     setParticipants([...participants, address]);
                     updater = {
@@ -69,22 +87,37 @@ export default function Item(props) {
                         setAddress(e.target.value);
                 }
             } />
+            {item?.number > 0 &&
+                <input className={styles.formField} type="number" name="number" id="number"
+                    min="1"
+                    max="10"
+                    placeholder="Nombre offert" onChange={
+                        (e) => {
+                            setNumber(e.target.value);
+                        }
+                    } />
+            }
             <div className={styles.gifterFormButtons}>
                 <button className={styles.gifterFormButton} type="submit">Ok</button>
                 <button className={styles.gifterFormButton} onClick={() => { setShowNameField(false); setShowAddressField(false); }}>Annuler</button>
             </div>
         </form>
     } else {
-        component = <div className={styles.giftingButtons}>
-            <button className={styles.giftButton} role="button" onClick={
-                () => { setShowNameField(true) }
-            }>J&apos;offre ce cadeau</button>
-            {item?.share &&
+        component = <div className={styles.giftedContainer}>
+            {gifters && <div className={styles.gifter}>
+                Merci à {gifters}, déjà {numberGifted} offert{numberGifted > 1 ? "s" : ""}!
+            </div>}
+            <div className={styles.giftingButtons}>
                 <button className={styles.giftButton} role="button" onClick={
-                    () => { setShowAddressField(true) }
-                }>Je participe à ce cadeau</button>
-            }
-        </div>;
+                    () => { setShowNameField(true) }
+                }>J&apos;offre ce cadeau</button>
+                {item?.share &&
+                    <button className={styles.giftButton} role="button" onClick={
+                        () => { setShowAddressField(true) }
+                    }>Je participe à ce cadeau</button>
+                }
+            </div>
+        </div>
     }
 
     return (
@@ -99,6 +132,7 @@ export default function Item(props) {
                         {item?.description &&
                             <div className={styles.itemDescription}>
                                 {item?.description.replaceAll("\\n", "\n")}
+                                {item?.number && <p>Besoin de {item?.number}.</p>}
                                 {item?.share && <p>Possibilité de participer en groupe à ce cadeau. Inscris ton adresse mail pour que nous te mettions en lien avec les autres personnes qui souhaitent aussi y participer.</p>}
                             </div>}
                         {participants.length > 0 &&
