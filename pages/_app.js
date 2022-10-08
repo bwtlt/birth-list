@@ -10,7 +10,7 @@ function MyApp ({ Component, pageProps }) {
   </AuthUserProvider>
 }
 MyApp.propTypes = {
-  Component: PropTypes.element,
+  Component: PropTypes.func,
   pageProps: PropTypes.array
 }
 
