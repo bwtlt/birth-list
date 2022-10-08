@@ -1,7 +1,8 @@
+import React from 'react'
 import styles from '../styles/Maintenance.module.scss'
-import Image from 'next/image';
+import Image from 'next/image'
 
-export default function Maintenance() {
+export default function Maintenance () {
   return (
     <main>
       <div className={styles.body}>
@@ -19,5 +20,5 @@ export default function Maintenance() {
         </div>
       </div>
     </main>
-  );
+  )
 }

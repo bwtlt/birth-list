@@ -1,73 +1,72 @@
-import firebase from "../lib/firebase";
-import "firebase/firestore";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import firebase from '../lib/firebase'
+import 'firebase/firestore'
 import Head from 'next/head'
 import Image from 'next/image'
 import Item from './components/Item'
-import Script from "next/script";
+import Script from 'next/script'
 import styles from '../styles/BirthList.module.scss'
-import { useAuth } from '../context/AuthUserContext';
+import { useAuth } from '../context/AuthUserContext'
 
-const email = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMAIL;
-const db = firebase.firestore();
-const CATEGORIES = ["Les repas", "Les sorties", "La chambre", "La toilette", "Les vêtements", "L'éveil", "Les souvenirs", "Les parents"];
+const email = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMAIL
+const db = firebase.firestore()
+const CATEGORIES = ['Les repas', 'Les sorties', 'La chambre', 'La toilette', 'Les vêtements', "L'éveil", 'Les souvenirs', 'Les parents']
 const PRIORITIES = [
-  "« Prioritaire », nécessaire avant la naissance.",
-  "« Les petits essentielles », peut attendre après la naissance.",
-  "« Les petits plus »",
-];
+  '« Prioritaire », nécessaire avant la naissance.',
+  '« Les petits essentielles », peut attendre après la naissance.',
+  '« Les petits plus »'
+]
 const Priorities = {
   All: -1,
   High: 0,
   Low: 1,
-  Sub: 2,
+  Sub: 2
 }
 
-export default function Home() {
-  const [category, setCategory] = useState("Tout");
-  const [priority, setPriority] = useState(-1);
-  const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState("");
-  const { authUser, signInWithEmailAndPassword } = useAuth();
-  const [highPriorityItems, setHighPriorityItems] = useState([]);
-  const [lowPriorityItems, setLowPriorityItems] = useState([]);
-  const [subPriorityItems, setSubPriorityItems] = useState([]);
-  const [giftedItems, setGiftedItems] = useState([]);
-  const [loadedDb, setLoadedDb] = useState(false);
+export default function Home () {
+  const [category, setCategory] = useState('Tout')
+  const [priority, setPriority] = useState(-1)
+  const [loading, setLoading] = useState(false)
+  const [password, setPassword] = useState('')
+  const { authUser, signInWithEmailAndPassword } = useAuth()
+  const [highPriorityItems, setHighPriorityItems] = useState([])
+  const [lowPriorityItems, setLowPriorityItems] = useState([])
+  const [subPriorityItems, setSubPriorityItems] = useState([])
+  const [giftedItems, setGiftedItems] = useState([])
+  const [loadedDb, setLoadedDb] = useState(false)
 
   useEffect(() => {
     if (authUser && !loadedDb) {
-      setLoading(true);
-      setGiftedItems([]);
-      setHighPriorityItems([]);
-      setLowPriorityItems([]);
-      setSubPriorityItems([]);
-      db.collection("list-items").get().then((querySnapshot) => {
+      setLoading(true)
+      setGiftedItems([])
+      setHighPriorityItems([])
+      setLowPriorityItems([])
+      setSubPriorityItems([])
+      db.collection('list-items').get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const item = doc.data();
-          item.id = doc.id;
+          const item = doc.data()
+          item.id = doc.id
           if (item.giftedBy && !item?.number) {
-            setGiftedItems(giftedItems => [...giftedItems, item]);
-          } else if (item.priority == Priorities.High) {
-            setHighPriorityItems(highPriorityItems => [...highPriorityItems, item]);
-          } else if (item.priority == Priorities.Low) {
-            setLowPriorityItems(lowPriorityItems => [...lowPriorityItems, item]);
+            setGiftedItems(giftedItems => [...giftedItems, item])
+          } else if (item.priority === Priorities.High) {
+            setHighPriorityItems(highPriorityItems => [...highPriorityItems, item])
+          } else if (item.priority === Priorities.Low) {
+            setLowPriorityItems(lowPriorityItems => [...lowPriorityItems, item])
           } else {
-            setSubPriorityItems(subPriorityItems => [...subPriorityItems, item]);
+            setSubPriorityItems(subPriorityItems => [...subPriorityItems, item])
           }
-        });
-      });
-      setLoading(false);
-      console.log("Items retrieved succesfully");
-      setLoadedDb(true);
+        })
+      })
+      setLoading(false)
+      console.log('Items retrieved succesfully')
+      setLoadedDb(true)
     }
   }, [authUser, loadedDb])
 
   const filterItem = (item) => {
-    const categoryMatches = category == "Tout" || item.category == category;
-    return !item.hidden && categoryMatches;
-  };
-
+    const categoryMatches = category === 'Tout' || item.category === category
+    return !item.hidden && categoryMatches
+  }
 
   return (
     <div className={styles.container}>
@@ -89,15 +88,15 @@ export default function Home() {
           {loading && <div>Chargement en cours...</div>}
           {!loading && authUser === null &&
             <form className={styles.login} onSubmit={async (e) => {
-              setLoading(true);
+              setLoading(true)
               signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                  console.log("Log in succesful")
+                .then(() => {
+                  console.log('Log in succesful')
                 })
                 .catch((error) => {
-                  console.error(error);
-                });
-              e.preventDefault();
+                  console.error(error)
+                })
+              e.preventDefault()
             }}>
               <label htmlFor="password">Mot de passe : </label>
               <input className={styles.passwordField} type="password" id="password" name="password" required onChange={(event) => setPassword(event.target.value)} />
@@ -145,7 +144,7 @@ export default function Home() {
               <form action="#" className={styles.filterControls}>
                 <label>Filtres : </label>
                 <select className={styles.select} name="category" id="category" value={category} onChange={(e) => {
-                  setCategory(e.target.value);
+                  setCategory(e.target.value)
                 }}>
                   <option value="Tout">Catégorie...</option>
                   {CATEGORIES.map((cat) => {
@@ -153,8 +152,7 @@ export default function Home() {
                   })}
                 </select>
                 <select className={styles.select} name="priority" id="priority" value={priority} onChange={(e) => {
-                  setPriority(e.target.value);
-                  ;
+                  setPriority(e.target.value)
                 }}>
                   <option value={Priorities.All}>Priorité...</option>
                   <option value={Priorities.High}>Prioritaire</option>
@@ -162,14 +160,14 @@ export default function Home() {
                   <option value={Priorities.Sub}>Les petits plus</option>
                 </select>
                 <button className={styles.filterButton} onClick={(e) => {
-                  e.preventDefault();
-                  setPriority(-1);
-                  setCategory("Tout");
+                  e.preventDefault()
+                  setPriority(-1)
+                  setCategory('Tout')
                 }}>Réinitialiser</button>
               </form>
 
               <div className={styles.sublistTitle}>Catégorie : {category}</div>
-              {(priority == Priorities.All || priority == Priorities.High) &&
+              {(priority === Priorities.All || priority === Priorities.High) &&
                 <>
                   <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.High]}</div>
                   <div className={styles.list}>
@@ -179,7 +177,7 @@ export default function Home() {
                   </div>
                 </>
               }
-              {(priority == Priorities.All || priority == Priorities.Low) &&
+              {(priority === Priorities.All || priority === Priorities.Low) &&
                 <>
                   <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Low]}</div>
                   <div className={styles.list}>
@@ -189,7 +187,7 @@ export default function Home() {
                   </div>
                 </>
               }
-              {(priority == Priorities.All || priority == Priorities.Sub) &&
+              {(priority === Priorities.All || priority === Priorities.Sub) &&
                 <>
                   <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Sub]}</div>
                   <div className={styles.list}>
