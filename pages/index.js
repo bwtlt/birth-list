@@ -10,7 +10,7 @@ import { useAuth } from '../context/AuthUserContext';
 
 const email = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMAIL;
 const db = firebase.firestore();
-const CATEGORIES = ["Les repas", "Les sorties", "La chambre", "La toilette", "L'éveil", "Les souvenirs", "Les parents"];
+const CATEGORIES = ["Les repas", "Les sorties", "La chambre", "La toilette", "Les vêtements", "L'éveil", "Les souvenirs", "Les parents"];
 const PRIORITIES = [
   "« Prioritaire », nécessaire avant la naissance.",
   "« Les petits essentielles », peut attendre après la naissance.",
@@ -33,10 +33,15 @@ export default function Home() {
   const [lowPriorityItems, setLowPriorityItems] = useState([]);
   const [subPriorityItems, setSubPriorityItems] = useState([]);
   const [giftedItems, setGiftedItems] = useState([]);
+  const [loadedDb, setLoadedDb] = useState(false);
 
   useEffect(() => {
-    if (authUser) {
+    if (authUser && !loadedDb) {
       setLoading(true);
+      setGiftedItems([]);
+      setHighPriorityItems([]);
+      setLowPriorityItems([]);
+      setSubPriorityItems([]);
       db.collection("list-items").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const item = doc.data();
@@ -53,8 +58,9 @@ export default function Home() {
         });
       });
       setLoading(false);
+      setLoadedDb(true);
     }
-  }, [authUser])
+  }, [authUser, loadedDb])
 
   const filterItem = (item) => {
     const categoryMatches = category == "Tout" || item.category == category;
@@ -94,7 +100,7 @@ export default function Home() {
             }}>
               <label htmlFor="password">Mot de passe : </label>
               <input className={styles.passwordField} type="password" id="password" name="password" required onChange={(event) => setPassword(event.target.value)} />
-              <input type="submit" value="Entrer" className={styles.gifterFormButton}/>
+              <input type="submit" value="Entrer" className={styles.gifterFormButton} />
             </form>
           }
           {authUser &&
@@ -161,7 +167,7 @@ export default function Home() {
                 }}>Réinitialiser</button>
               </form>
 
-              <div className={styles.sublistTitle}>Categorie : {category}</div>
+              <div className={styles.sublistTitle}>Catégorie : {category}</div>
               {(priority == Priorities.All || priority == Priorities.High) &&
                 <>
                   <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.High]}</div>
