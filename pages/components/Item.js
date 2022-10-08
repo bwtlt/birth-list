@@ -132,7 +132,7 @@ export default function Item(props) {
                         {item?.description &&
                             <div className={styles.itemDescription}>
                                 {item?.description.replaceAll("\\n", "\n")}
-                                {item?.number && <p>Besoin de {item?.number}.</p>}
+                                {item?.number && <p>Besoin de {item?.number}, indique le nombre que tu souhaites offrir en cliquant sur le bouton.</p>}
                                 {item?.share && <p>Possibilité de participer en groupe à ce cadeau. Inscris ton adresse mail pour que nous te mettions en lien avec les autres personnes qui souhaitent aussi y participer.</p>}
                             </div>}
                         {participants.length > 0 &&
