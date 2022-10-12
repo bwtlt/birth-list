@@ -29,6 +29,8 @@ export default function Item (props) {
             </div>
             <div className={styles.gifted}>Déjà offert</div>
         </div>
+  } else if (item?.giftable === false) {
+    component = <></>
   } else if (showNameField || showAddressField) {
     component = <form className={styles.gifterForm} onSubmit={async (e) => {
       e.preventDefault()
@@ -145,7 +147,7 @@ export default function Item (props) {
                             </div>
                         }
                         {(!giftedBy && item?.price) && <div className={styles.itemPrice}>{item?.price}€</div>}
-                        {item?.link && <a href={item?.link} className={styles.itemLink}>Lien</a>}
+                        {item?.link && <a target="_blank" rel="noreferrer" href={item?.link} className={styles.itemLink}>Lien</a>}
                     </div>
                     {component}
                 </div>
