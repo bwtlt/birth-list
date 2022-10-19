@@ -108,7 +108,7 @@ export default function Home () {
               <div className={styles.intro}>
                 <div className={styles.introText}>
                   <p>
-                    Cela fait sept mois que nous préparons l’arrivée de notre petite fille.
+                    Cela fait huit mois que nous préparons l’arrivée de notre petite fille.
                     Tu te projètes avec nous dans ce nouveau chapitre de notre vie et cela nous touche profondément.
                     On nous demande souvent ce qui nous ferait plaisir et ce dont nous aurions besoin pour accueillir au mieux notre petit bout de chou dans notre maison roulante.
                   </p>
