@@ -11,7 +11,7 @@ function MyApp ({ Component, pageProps }) {
 }
 MyApp.propTypes = {
   Component: PropTypes.func,
-  pageProps: PropTypes.array
+  pageProps: PropTypes.object
 }
 
 export default MyApp

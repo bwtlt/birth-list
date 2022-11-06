@@ -25,7 +25,7 @@ const Priorities = {
 
 export default function Home () {
   const [category, setCategory] = useState('Tout')
-  const [priority, setPriority] = useState(-1)
+  const [priority, setPriority] = useState(Priorities.All)
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState('')
   const { authUser, signInWithEmailAndPassword } = useAuth()
@@ -59,6 +59,7 @@ export default function Home () {
       })
       setLoading(false)
       console.log('Items retrieved succesfully')
+      console.log(priority)
       setLoadedDb(true)
     }
   }, [authUser, loadedDb])
@@ -143,7 +144,7 @@ export default function Home () {
               </div>
               <form action="#" className={styles.filterControls}>
                 <label>Filtres : </label>
-                <select className={styles.select} name="category" id="category" value={category} onChange={(e) => {
+                <select className={styles.select} name="category" id="categorySelect" value={category} onChange={(e) => {
                   setCategory(e.target.value)
                 }}>
                   <option value="Tout">Catégorie...</option>
@@ -151,7 +152,8 @@ export default function Home () {
                     return (<option value={cat} key={cat}>{cat}</option>)
                   })}
                 </select>
-                <select className={styles.select} name="priority" id="priority" value={priority} onChange={(e) => {
+                <select className={styles.select} name="priority" id="prioritySelect" value={priority} onChange={(e) => {
+                  console.log(e.target.value)
                   setPriority(e.target.value)
                 }}>
                   <option value={Priorities.All}>Priorité...</option>
@@ -161,13 +163,13 @@ export default function Home () {
                 </select>
                 <button className={styles.filterButton} onClick={(e) => {
                   e.preventDefault()
-                  setPriority(-1)
+                  setPriority(Priorities.All)
                   setCategory('Tout')
                 }}>Réinitialiser</button>
               </form>
 
               <div className={styles.sublistTitle}>Catégorie : {category}</div>
-              {(priority === Priorities.All || priority === Priorities.High) &&
+              {(priority == Priorities.All || priority == Priorities.High) &&
                 <>
                   <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.High]}</div>
                   <div className={styles.list}>
@@ -177,7 +179,7 @@ export default function Home () {
                   </div>
                 </>
               }
-              {(priority === Priorities.All || priority === Priorities.Low) &&
+              {(priority == Priorities.All || priority == Priorities.Low) &&
                 <>
                   <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Low]}</div>
                   <div className={styles.list}>
@@ -187,7 +189,7 @@ export default function Home () {
                   </div>
                 </>
               }
-              {(priority === Priorities.All || priority === Priorities.Sub) &&
+              {(priority == Priorities.All || priority == Priorities.Sub) &&
                 <>
                   <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Sub]}</div>
                   <div className={styles.list}>
