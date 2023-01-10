@@ -11,27 +11,13 @@ import { useAuth } from '../context/AuthUserContext'
 const email = process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMAIL
 const db = firebase.firestore()
 const CATEGORIES = ['Les repas', 'Les sorties', 'La chambre', 'La toilette', 'Les vêtements', "L'éveil", 'Les souvenirs', 'Les parents']
-const PRIORITIES = [
-  '« Prioritaire », nécessaire avant la naissance.',
-  '« Les petits essentielles », peut attendre après la naissance.',
-  '« Les petits plus »'
-]
-const Priorities = {
-  All: -1,
-  High: 0,
-  Low: 1,
-  Sub: 2
-}
 
 export default function Home () {
   const [category, setCategory] = useState('Tout')
-  const [priority, setPriority] = useState(Priorities.All)
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState('')
   const { authUser, signInWithEmailAndPassword } = useAuth()
-  const [highPriorityItems, setHighPriorityItems] = useState([])
-  const [lowPriorityItems, setLowPriorityItems] = useState([])
-  const [subPriorityItems, setSubPriorityItems] = useState([])
+  const [items, setItems] = useState([])
   const [giftedItems, setGiftedItems] = useState([])
   const [loadedDb, setLoadedDb] = useState(false)
 
@@ -39,27 +25,20 @@ export default function Home () {
     if (authUser && !loadedDb) {
       setLoading(true)
       setGiftedItems([])
-      setHighPriorityItems([])
-      setLowPriorityItems([])
-      setSubPriorityItems([])
+      setItems([])
       db.collection('list-items').get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const item = doc.data()
           item.id = doc.id
           if (item.giftedBy && !item?.number) {
             setGiftedItems(giftedItems => [...giftedItems, item])
-          } else if (item.priority === Priorities.High) {
-            setHighPriorityItems(highPriorityItems => [...highPriorityItems, item])
-          } else if (item.priority === Priorities.Low) {
-            setLowPriorityItems(lowPriorityItems => [...lowPriorityItems, item])
           } else {
-            setSubPriorityItems(subPriorityItems => [...subPriorityItems, item])
+            setItems(items => [...items, item])
           }
         })
       })
       setLoading(false)
       console.log('Items retrieved succesfully')
-      console.log(priority)
       setLoadedDb(true)
     }
   }, [authUser, loadedDb])
@@ -151,53 +130,20 @@ export default function Home () {
                     return (<option value={cat} key={cat}>{cat}</option>)
                   })}
                 </select>
-                <select className={styles.select} name="priority" id="prioritySelect" value={priority} onChange={(e) => {
-                  console.log(e.target.value)
-                  setPriority(e.target.value)
-                }}>
-                  <option value={Priorities.All}>Priorité...</option>
-                  <option value={Priorities.High}>Prioritaire</option>
-                  <option value={Priorities.Low}>Secondaire</option>
-                  <option value={Priorities.Sub}>Les petits plus</option>
-                </select>
                 <button className={styles.filterButton} onClick={(e) => {
                   e.preventDefault()
-                  setPriority(Priorities.All)
                   setCategory('Tout')
                 }}>Réinitialiser</button>
               </form>
 
               <div className={styles.sublistTitle}>Catégorie : {category}</div>
-              {(priority == Priorities.All || priority == Priorities.High) &&
-                <>
-                  <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.High]}</div>
-                  <div className={styles.list}>
-                    {highPriorityItems.filter((item) => filterItem(item)).map((item) => {
-                      return (<Item key={item.id} item={item} database={db} />)
-                    })}
-                  </div>
-                </>
-              }
-              {(priority == Priorities.All || priority == Priorities.Low) &&
-                <>
-                  <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Low]}</div>
-                  <div className={styles.list}>
-                    {lowPriorityItems.filter((item) => filterItem(item)).map((item) => {
-                      return (<Item key={item.id} item={item} database={db} />)
-                    })}
-                  </div>
-                </>
-              }
-              {(priority == Priorities.All || priority == Priorities.Sub) &&
-                <>
-                  <div className={styles.listTitle}>Liste {PRIORITIES[Priorities.Sub]}</div>
-                  <div className={styles.list}>
-                    {subPriorityItems.filter((item) => filterItem(item)).map((item) => {
-                      return (<Item key={item.id} item={item} database={db} />)
-                    })}
-                  </div>
-                </>
-              }
+              <>
+                <div className={styles.list}>
+                  {items.filter((item) => filterItem(item)).map((item) => {
+                    return (<Item key={item.id} item={item} database={db} />)
+                  })}
+                </div>
+              </>
               <>
                 <div className={styles.listTitle}>Déjà offerts</div>
                 <div className={styles.list}>
