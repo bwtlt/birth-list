@@ -73,7 +73,7 @@ export default function Home () {
     <div className={styles.container}>
       <Head>
         <title>Liste de naissance</title>
-        <meta name="description" content="La liste de naissance de Bébé Waka" />
+        <meta name="description" content="La liste de naissance de Romy" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -81,9 +81,9 @@ export default function Home () {
         <Script src="https://kit.fontawesome.com/c9688da9a5.js" crossorigin="anonymous"></Script>
         <div className={styles.header}>
           <div className={styles.logo}>
-            <Image src="/logo.svg" alt="Vercel Logo" width={40} height={40} />
+            <Image src="/logo.svg" alt="Logo" width={40} height={40} />
           </div>
-          <div className={styles.title}>La liste de naissance de bébé Waka</div>
+          <div className={styles.title}>La liste de naissance de Romy</div>
         </div>
         <div className={styles.body}>
           {loading && <div>Chargement en cours...</div>}
@@ -109,21 +109,20 @@ export default function Home () {
               <div className={styles.intro}>
                 <div className={styles.introText}>
                   <p>
-                    Cela fait huit mois que nous préparons l’arrivée de notre petite fille.
-                    Tu te projètes avec nous dans ce nouveau chapitre de notre vie et cela nous touche profondément.
-                    On nous demande souvent ce qui nous ferait plaisir et ce dont nous aurions besoin pour accueillir au mieux notre petit bout de chou dans notre maison roulante.
+                  Notre petite fille est née le Mardi 20 Décembre 2022 à 20h58 à Saint-Etienne.<br/>
+                  Elle s&apos;appelle Romy Anouch Watelet et elle rend déjà gaga toute la famille.<br/>
+                  Bien gâtée, il nous manque très peu de chose...<br/>
+                  Un compte bancaire lui a été ouvert pour les futurs achats.<br/>
+                  Sinon, voici quelques articles qui nous feraient très plaisir et que nous aurions besoin d&apos;avoir au quotidien.<br/>
+                  La liste n&apos;est pas exhaustive, si vous souhaitez nous offrir d&apos;autres présents, cela nous touchera beaucoup.<br/>
+                  Sachez qu&apos;on apprécie les cadeaux de seconde main, d&apos;occasion, faits main...
                   </p>
-
-                  <p>Alors Tadam !! voilà THE List ! En réalité il y en a trois :  une avec les articles dont nous aurions besoin avant sa naissance, une qui peut attendre sa venue au monde et une dernière avec des petits extras. </p>
 
                   <p>
                     <span className={styles.question}>Comment ça marche ?</span>
                     <br></br>
                     C&apos;est super simple, tu te positionnes sur un article à offrir, tu cliques sur &quot;j&apos;offre ce cadeau&quot; en indiquant ton prénom pour valider.
                     Ensuite, à toi de te rendre en magasin ou sur internet pour acheter l&apos;article.
-                    Il peut aussi provenir de ton garage, de Vinted ou du fait main, ce qui nous ferait très plaisir !
-                    Pas besoin de paquet cadeau, bon si, j&apos;avoue : un petit noeud rose c&apos;est toujours la classe.
-                    Et le tour est joué !
                   </p>
                   <p>
                     La plupart des liens que nous avons mis proviennent du magasin Autour de bébé où nous avons une carte fidélité au nom de &quot;Laëtitia Watelet&quot;, n&apos;hésite pas à l&apos;utiliser.
@@ -136,7 +135,7 @@ export default function Home () {
                     Envoie nous un message, on annulera le problème.
                   </p>
 
-                  <p>On te laisse découvrir tout ça, à bientôt et merci !</p>
+                  <p>On te laisse découvrir tout ça, à bientôt pour la rencontrer !</p>
                 </div>
                 <div className={styles.introImageContainer}>
                   <Image className={styles.introImage} src="/parents.png" layout="fill" objectFit="contain" alt="Les heureux parents"></Image>

@@ -17,6 +17,6 @@ module.exports = {
     'react'
   ],
   rules: {
-    eqeqeq: 'smart'
+    eqeqeq: 1
   }
 }
